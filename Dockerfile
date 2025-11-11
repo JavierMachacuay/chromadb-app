@@ -12,7 +12,11 @@ VOLUME ["/data"]
 
 EXPOSE 8000
 
-RUN adduser --disabled-password appuser
+RUN adduser --disabled-password appuser \
+    && mkdir -p /data \
+    && chown -R appuser:appuser /data
+
 USER appuser
+
 
 CMD ["chroma", "run", "--host", "0.0.0.0", "--port", "8000", "--path", "/data"]
